@@ -4,7 +4,7 @@ class Users extends CI_Controller
 {
     //Everything related to user authentication
     //*******************************************************************************************************************
-    //index page
+    //index functionality
     public function index()
     {
         //blocking manual redirection
@@ -17,7 +17,7 @@ class Users extends CI_Controller
         }
     }
 
-    //register page
+    //register functionality
     public function register()
     {
         //blocking manual redirection
@@ -51,7 +51,7 @@ class Users extends CI_Controller
     }
 
 
-    //login page
+    //login functionality
     public function login()
     {
         //loading model
@@ -93,46 +93,50 @@ class Users extends CI_Controller
         }
     }
 
-    //lougout functionality
+    //logout functionality
     public function logout()
     {
         $this->session->sess_destroy();
         redirect(base_url() . 'index.php/Users/index');
     }
-    //User authentication finished
-    //*************************************************************************************************************************
+
 
     public function dashboard()
     {
         //bloacking manual redirection
         if (!empty($this->session->userdata['isLoggedIn'])) {
             $this->load->model('users/Users_model');
-            $this->load->view('users/dashboard');
+            $returnedUser['user'] = $this->Users_model->showData($this->session->userdata['user_id']);
+            $this->load->view('users/dashboard', $returnedUser);
         } else {
             redirect(base_url() . 'index.php/Users/login');
         }
     }
 
+    //User authentication finished
+    //*************************************************************************************************************************
+
+
     //Everything related to the quotes collection
 
-    // public function createQuote()
-    // {
-    //     $this->load->model('users/Users_model');
-    //     $returnedUser['user'] = $this->Users_model->showData($this->session->userdata['user_id']);
-    //     // form validation
-    //     $this->form_validation->set_rules('quote_body', 'Quote', 'required');
-    //     $this->form_validation->set_rules('quote_author', 'Author', 'required');
-    //     if ($this->form_validation->run() == false) {
-    //         $this->load->view('quotes/create');
-    //     } else {
-    //         $formData = array();
-    //         $formData['quote_body'] = $this->input->post('quote_body');
-    //         $formData['quote_author'] = $this->input->post('quote_author');
-    //         $formData['created_at'] = date('Y-m-d H:m:s');
+    public function createQuote()
+    {
+        $this->load->model('users/Users_model');
+        // $this->load->view('quotes/create');
+        // $returnedUser['user'] = $this->Users_model->showData($this->session->userdata['user_id']);
+        // form validation
+        $this->form_validation->set_rules('quote_body', 'Quote', 'required');
+        $this->form_validation->set_rules('quote_author', 'Author', 'required');
+        if ($this->form_validation->run() == false) {
+            $this->load->view('quotes/create');
+        } else {
+            $formData = array();
+            $formData['quote_body'] = $this->input->post('quote_body');
+            $formData['quote_author'] = $this->input->post('quote_author');
+            $formData['created_at'] = date('Y-m-d H:m:s');
 
-    //         $this->load->model('Quotes_model');
-    //         $this->Quotes_model->createQuotes($formData);
-    //         redirect(base_url() . 'index.php/Users/list');
-    //     }
-    // }
+            $this->Users_model->createQuotes($formData);
+            redirect(base_url() . 'index.php/Users/list');
+        }
+    }
 }

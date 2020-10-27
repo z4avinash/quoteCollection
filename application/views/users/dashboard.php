@@ -9,18 +9,19 @@
 </head>
 
 <body>
-
-
     <nav>
         <ul>
             <li>
-                <!-- <p><?//php echo $user['full_name'] ?></p> -->
+                <p><?php echo $user['full_name'] ?></p>
             </li>
             <li>
                 <a href="<?php echo base_url() ?>index.php/Users/logout"><button id="logout">Log Out</button></a>
             </li>
         </ul>
-    </nav><br>
+    </nav><br><br>
+    <form action="<?php base_url() ?>createQuote" method="post">
+        <button id="createQuote">Add Quote</button>
+    </form>
 
 </body>
 

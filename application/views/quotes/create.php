@@ -9,17 +9,8 @@
 </head>
 
 <body>
-    <nav>
-        <ul>
-            <li>
-                <p><?php echo $user['full_name'] ?></p>
-            </li>
-            <li>
-                <a href="<?php echo base_url() ?>index.php/Users/logout"><button id="logout">Log Out</button></a>
-            </li>
-        </ul>
-    </nav><br>
-    <form action="" id="qutoeCreateForm" method="post">
+
+    <form action="" id="quoteCreateForm" method="post">
         <div class="container">
             <div class="quote_body">
                 <label style="display: none;">Quote</label><textarea name="quote_body" id="quote_body" cols="50" rows="10" placeholder="write your quotes here!"><?php echo set_value('quote_body') ?></textarea><span class="error"><?php echo form_error('quote_body') ?></span>
