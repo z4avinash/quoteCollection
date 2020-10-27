@@ -11,7 +11,7 @@
 <body>
     <nav>Login</nav>
     <br><br>
-    <form action="" id="loginForm" method="post">
+    <form action="<?php base_url() ?>login" id="loginForm" method="post">
         <div class="login_email">
             <label>E-mail: </label><input type="text" value="<?php echo set_value('login_email') ?>" name="login_email" id="login_email" placeholder="email@example.com"><span class="error"><?php echo form_error('login_email') ?></span>
         </div><br>

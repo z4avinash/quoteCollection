@@ -16,4 +16,9 @@ class Users_model extends CI_model
     {
         return $user = $this->db->where('user_id', $user_id)->get('users')->row_array();
     }
+
+    public function createQuotes($formData)
+    {
+        $this->db->insert('quotes', $formData);
+    }
 }

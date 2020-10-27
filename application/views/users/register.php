@@ -11,7 +11,7 @@
 <body>
     <nav>Register</nav>
     <br><br>
-    <form action="" id="registerForm" method="post">
+    <form action="<?php echo base_url() ?>index.php/Users/login" id="registerForm" method="post">
         <div class="full_name">
             <label>Full Name: </label><input value="<?php echo set_value('full_name') ?>" type="text" name="full_name" id="full_name" placeholder="Avinash Kumar"><span class="error"><?php echo form_error('full_name') ?></span>
         </div><br>
