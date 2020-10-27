@@ -1,0 +1,41 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background-color: whitesmoke;
+}
+
+nav {
+	background-color: black;
+	color: white;
+	font-size: 30px;
+	font-weight: 700;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 10px;
+	height: 5vh;
+}
+
+label {
+	font-style: italic;
+	font-weight: 700;
+}
+
+input,
+button {
+	padding: 10px;
+	font-size: 15px;
+	border-radius: 5px;
+	outline: none;
+}
+
+button {
+	cursor: pointer;
+}
+
+.error {
+	color: red;
+}
