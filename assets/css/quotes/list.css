@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Caveat&family=Mali:ital,wght@1,300&family=Quicksand:wght@500&display=swap");
+
 * {
 	margin: 0;
 	padding: 0;
@@ -47,4 +49,62 @@ button {
 
 .error {
 	color: red;
+}
+
+.add-button {
+	display: flex;
+	justify-content: center;
+}
+
+#createQuote {
+	padding: 20px;
+}
+
+.container {
+	width: 35rem;
+	height: auto;
+	display: inline-block;
+	padding: 15px;
+	border: none;
+	border-radius: 10px;
+	margin: 20px;
+	color: white;
+	background-color: rgb(1, 20, 31);
+}
+
+#buttons {
+	display: flex;
+}
+
+#edit {
+	background-color: rgb(2, 112, 202);
+}
+
+#delete {
+	background-color: red;
+}
+
+.quote_id {
+	font-size: 15px;
+	font-weight: 700;
+	border-radius: 5px;
+	border: 1px solid white;
+	padding: 0.1rem 0.3rem;
+}
+
+.quote_body {
+	display: flex;
+	flex-wrap: wrap;
+	width: 36rem;
+	font-size: 18px;
+	font-family: "Mali", cursive;
+}
+
+.quote_author {
+	font-size: 20px;
+	font-family: "Caveat", cursive;
+}
+
+.date {
+	font-size: 10px;
 }

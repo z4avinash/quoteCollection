@@ -24,4 +24,24 @@ class Users_model extends CI_model
     {
         $this->db->insert('quotes', $formData);
     }
+
+    public function loadQuotes()
+    {
+        return $this->db->get('quotes')->result_array();
+    }
+
+    public function getSpecificQuote($quote_id)
+    {
+        return $this->db->where('quote_id', $quote_id)->get('quotes')->row_array();
+    }
+
+    public function updateQuote($quote_id, $formData)
+    {
+        return $this->db->where('quote_id', $quote_id)->update('quotes', $formData);
+    }
+
+    public function delete($quote_id)
+    {
+        return $this->db->where('quote_id', $quote_id)->delete('quotes');
+    }
 }

@@ -107,7 +107,12 @@ class Users extends CI_Controller
         if (!empty($this->session->userdata['isLoggedIn'])) {
             $this->load->model('users/Users_model');
             $returnedUser['user'] = $this->Users_model->showData($this->session->userdata['user_id']);
-            $this->load->view('users/dashboard', $returnedUser);
+            $data['user'] = $returnedUser['user'];
+            //loading the quotes in the dashboard
+            $allQuotes['quotes'] = $this->Users_model->loadQuotes();
+            $data['quotes'] = $allQuotes['quotes'];
+            $allData['data'] = $data;
+            $this->load->view('users/dashboard', $allData);
         } else {
             redirect(base_url() . 'index.php/Users/login');
         }
@@ -122,10 +127,7 @@ class Users extends CI_Controller
     public function createQuote()
     {
         $this->load->model('users/Users_model');
-        // $this->load->view('quotes/create');
-        // $returnedUser['user'] = $this->Users_model->showData($this->session->userdata['user_id']);
-        // form validation
-        $this->form_validation->set_rules('quote_body', 'Quote', 'required');
+        $this->form_validation->set_rules('quote_body', 'Quote', 'required|is_unique[quotes.quote_body]');
         $this->form_validation->set_rules('quote_author', 'Author', 'required');
         if ($this->form_validation->run() == false) {
             $this->load->view('quotes/create');
@@ -133,10 +135,38 @@ class Users extends CI_Controller
             $formData = array();
             $formData['quote_body'] = $this->input->post('quote_body');
             $formData['quote_author'] = $this->input->post('quote_author');
-            $formData['created_at'] = date('Y-m-d H:m:s');
+            $formData['created_at'] = date('Y-m-d H:i:s');
 
             $this->Users_model->createQuotes($formData);
-            redirect(base_url() . 'index.php/Users/list');
+            redirect(base_url() . 'index.php/Users/dashboard');
         }
+    }
+
+    //updating
+    public function edit($quote_id)
+    {
+        $this->load->model('users/Users_model');
+        $quote['quote'] = $this->Users_model->getSpecificQuote($quote_id);
+
+        $this->form_validation->set_rules('quote_body', 'Quote', 'required|is_unique[quotes.quote_body]');
+        $this->form_validation->set_rules('quote_author', 'Author', 'required');
+        if ($this->form_validation->run() == false) {
+            $this->load->view('quotes/edit', $quote);
+        } else {
+            $formData = array();
+            $formData['quote_body'] = $this->input->post('quote_body');
+            $formData['quote_author'] = $this->input->post('quote_author');
+
+            $this->Users_model->updateQuote($quote_id, $formData);
+            redirect(base_url() . 'index.php/Users/dashboard');
+        }
+    }
+
+    //deleting
+    public function delete($quote_id)
+    {
+        $this->load->model('users/Users_model');
+        $this->Users_model->delete($quote_id);
+        redirect(base_url() . 'index.php/Users/dashboard');
     }
 }
